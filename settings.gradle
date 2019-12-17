@@ -1,0 +1,2 @@
+include ':app', ':crashhandlerlib'
+rootProject.name='CrashHandlerDemo'
