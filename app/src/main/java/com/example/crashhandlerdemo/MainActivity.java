@@ -4,18 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
-import com.example.zyzzc_permission_lib.ZyzzcPermissionUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-    ZyzzcPermissionUtils zyzzcPermissionUtils = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        zyzzcPermissionUtils = new ZyzzcPermissionUtils(this);
-        int result = 10 / 0;
-        Log.d("yazhou","result = "+result);
+
+        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i = 10/0;
+            }
+        });
     }
 }
