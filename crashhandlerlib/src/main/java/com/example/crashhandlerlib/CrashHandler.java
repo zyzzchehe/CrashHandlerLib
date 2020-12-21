@@ -42,6 +42,16 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     }
 
+    private InterfaceImpl listener;
+
+    public interface InterfaceImpl{
+        void noticeServer();
+    }
+
+    public void setListener(InterfaceImpl listener){
+        this.listener = listener;
+    }
+
     /** 获取CrashHandler实例 ,单例模式 */
     public static CrashHandler getInstance() {
         if(INSTANCE == null){
@@ -104,6 +114,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }.start();
         collectDeviceInfo(mContext);
         saveCrashInfo2File(ex);
+        listener.noticeServer();
         return true;
     }
 
