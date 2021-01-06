@@ -1,2 +1,2 @@
 include ':app', ':crashhandlerlib'
-rootProject.name='CrashHandlerDemo'
+rootProject.name='CrashHandlerLib'
