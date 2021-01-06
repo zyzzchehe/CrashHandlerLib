@@ -1,6 +1,7 @@
 package com.example.crashhandlerlib;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -37,6 +38,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
     private DateFormat fileFormatter = new SimpleDateFormat("yy-MM-dd", Locale.getDefault());
     private DateFormat timeFormatter = new SimpleDateFormat("yy-MM-dd HH:mm:ss:SSS", Locale.getDefault());
 
+    String fileName = "crash_log.txt";
+
     /** 保证只有一个CrashHandler实例 */
     private CrashHandler() {
 
@@ -58,6 +61,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
             INSTANCE = new CrashHandler();
         }
         return INSTANCE;
+    }
+
+    public void initFileName(String newFileName){
+        fileName = newFileName;
     }
 
     /**
@@ -176,8 +183,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
         sb.append(result);
 
         try {
-            String time = fileFormatter.format(new Date());
-            String fileName = "crash-" + time + ".log";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/crash_log";
                 Log.d(TAG,"file path is = "+path);
@@ -185,7 +190,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-                String filePath = path + File.separator +fileName;
+                String time = fileFormatter.format(new Date());
+                String filePath = path + File.separator + time + fileName;
                 File logFile = new File(filePath);
                 AtomicBoolean isCreateSucc = new AtomicBoolean(false);
                 if(!logFile.exists()){
