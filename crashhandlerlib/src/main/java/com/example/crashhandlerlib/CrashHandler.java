@@ -41,19 +41,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     String fileName = "crash_log.txt";
 
     /** 保证只有一个CrashHandler实例 */
-    private CrashHandler() {
-
-    }
-
-    private InterfaceImpl listener;
-
-    public interface InterfaceImpl{
-        void noticeServer();
-    }
-
-    public void setListener(InterfaceImpl listener){
-        this.listener = listener;
-    }
+    private CrashHandler() {}
 
     /** 获取CrashHandler实例 ,单例模式 */
     public static CrashHandler getInstance() {
@@ -122,7 +110,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }.start();
         collectDeviceInfo(mContext);
         saveCrashInfo2File(ex);
-        listener.noticeServer();
         return true;
     }
 
